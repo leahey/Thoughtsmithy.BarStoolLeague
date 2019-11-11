@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="Models\AllstarFull.cs" />
+    <Compile Remove="Models\Appearances.cs" />
+    <Compile Remove="Models\AwardsManagers.cs" />
+    <Compile Remove="Models\AwardsPlayers.cs" />
+    <Compile Remove="Models\AwardsShareManagers.cs" />
+    <Compile Remove="Models\AwardsSharePlayers.cs" />
+    <Compile Remove="Models\Batting.cs" />
+    <Compile Remove="Models\BattingPost.cs" />
+    <Compile Remove="Models\CollegePlaying.cs" />
+    <Compile Remove="Models\Fielding.cs" />
+    <Compile Remove="Models\FieldingOf.cs" />
+    <Compile Remove="Models\FieldingOfsplit.cs" />
+    <Compile Remove="Models\FieldingPost.cs" />
+    <Compile Remove="Models\HallOfFame.cs" />
+    <Compile Remove="Models\HomeGames.cs" />
+    <Compile Remove="Models\LahmansBaseballDBContext.cs" />
+    <Compile Remove="Models\Managers.cs" />
+    <Compile Remove="Models\ManagersHalf.cs" />
+    <Compile Remove="Models\Parks.cs" />
+    <Compile Remove="Models\Pitching.cs" />
+    <Compile Remove="Models\PitchingPost.cs" />
+    <Compile Remove="Models\Salaries.cs" />
+    <Compile Remove="Models\Schools.cs" />
+    <Compile Remove="Models\SeriesPost.cs" />
+    <Compile Remove="Models\Teams.cs" />
+    <Compile Remove="Models\TeamsFranchises.cs" />
+    <Compile Remove="Models\TeamsHalf.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+</Project>
