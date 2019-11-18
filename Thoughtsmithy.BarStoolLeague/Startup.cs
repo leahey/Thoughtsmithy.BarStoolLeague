@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Thoughtsmithy.BarStoolLeague.Models;
-using Thoughtsmithy.BarStoolLeague.Repositories;
 
 namespace Thoughtsmithy.BarStoolLeague
 {
@@ -31,7 +30,6 @@ namespace Thoughtsmithy.BarStoolLeague
             services.AddDbContext<BarStoolLeagueContext>(opt => 
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-            services.AddScoped<IPersonRepository, PersonRepository>();
             
         }
 

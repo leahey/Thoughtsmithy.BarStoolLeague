@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Thoughtsmithy.BarStoolLeague.Models;
-using Thoughtsmithy.BarStoolLeague.Repositories;
 
 namespace Thoughtsmithy.BarStoolLeague.Controllers
 {
@@ -11,19 +12,29 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonRepository _repository;
+        private readonly BarStoolLeagueContext _context;
 
-        public PersonController(IPersonRepository peopleRepository) => _repository = peopleRepository;
+        public PersonController(BarStoolLeagueContext context)
+        {
+            _context = context;
+        }
 
         // GET: api/Person
         [HttpGet]
-        public async Task<ActionResult<IQueryable<Person>>> GetPersons() => Ok(await _repository.GetAsync());
+        public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
+        {
+            return await _context.Persons.ToListAsync();
+        }
 
-        // GET: api/Person/5
+        // GET: api/Person/aaronha01
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(string id)
         {
-            var person = await _repository.GetByIdAsync(id);
+            var trimmedId = id.Trim('"');
+            var person = await _context.Persons.Where(p => p.PlayerId.Equals(trimmedId)).FirstAsync();
+            
+            // Because we have no primary key, can't use Find()
+            //var person = await _context.Persons.FindAsync(id);
 
             if (person == null)
             {
@@ -32,84 +43,6 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
 
             return person;
         }
-
-        //private async Task<bool> PeopleExistsAsync(string id) => await _repository.ContainsAsync(p => p.PlayerId == id);
-
-        #region write methods
-        //// PUT: api/People/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPeople(string id, People person)
-        //{
-        //    if (id != person.PeopleId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(person).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PeopleExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/People
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost]
-        //public async Task<ActionResult<People>> PostPeople(People person)
-        //{
-        //    _context.Peoples.Add(person);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (PeopleExists(person.PeopleId))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction(nameof(GetPeople), new { id = person.PeopleId }, person);
-        //}
-
-        //// DELETE: api/People/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<People>> DeletePeople(string id)
-        //{
-        //    var person = await _context.Peoples.FindAsync(id);
-        //    if (person == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Peoples.Remove(person);
-        //    await _context.SaveChangesAsync();
-
-        //    return person;
-        //}
-        #endregion
 
     }
 }

@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Moq;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Thoughtsmithy.BarStoolLeague.Controllers;
 using Thoughtsmithy.BarStoolLeague.Models;
-using Thoughtsmithy.BarStoolLeague.Repositories;
 using Xunit;
-using System.Linq;
 
 namespace Thoughtsmithy.BarStoolLeague.Test
 {
@@ -38,7 +37,7 @@ namespace Thoughtsmithy.BarStoolLeague.Test
         #endregion
 
         #region private
-        private Mock<IPersonRepository> repositoryMock;
+        private Mock<BarStoolLeagueContext> contextMock;
         private readonly Dictionary<string, Person> peopleList = new Dictionary<string, Person>();
         #endregion
 
@@ -73,13 +72,17 @@ namespace Thoughtsmithy.BarStoolLeague.Test
             var returnPerson = new Person();
 
             repositoryMock
-                .Setup(m => m.GetByIdAsync(It.IsAny<string>()))
+                .Setup(m => m.GetById(It.IsAny<string>()))
                 .Callback<string>(s => returnPerson = peopleList[s])
-                .Returns(() => Task.FromResult(returnPerson));
+                .Returns(() => returnPerson);
 
             repositoryMock
-                .Setup(m => m.GetAsync(It.Is<int>(i => i == 0), It.Is<int>(i => i == 50)))
-                .Returns(Task.FromResult(peopleList.Values.Take(50).AsQueryable()));
+                .Setup(m => m.Get(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(peopleList.Values.Take(50).AsQueryable());
+
+            repositoryMock
+                .Setup(m => m.TotalCount)
+                .Returns(peopleList.Count);
         }
         #endregion
 
@@ -95,22 +98,9 @@ namespace Thoughtsmithy.BarStoolLeague.Test
             var actual = tested.GetPerson(person01Id);
 
             // assert
-            Assert.Equal(expected, $"{actual.Result.Value.NameFirst} {actual.Result.Value.NameLast}");
+            Assert.Equal(expected, $"{actual.Value.NameFirst} {actual.Value.NameLast}");
         }
 
-        [Fact]
-        private void GetPersons_NoParams_ShouldReturn10()
-        {
-            // arrange
-            var tested = new PersonController(repositoryMock.Object);
-            var expected = 10;
-
-            // act
-            var actual = tested.GetPersons();
-
-            // assert
-            Assert.Equal(expected, actual.Result.Value.Count());
-        }
         #endregion
     }
 }

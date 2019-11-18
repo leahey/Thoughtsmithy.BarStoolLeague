@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Thoughtsmithy.BarStoolLeague.Models
+﻿namespace Thoughtsmithy.BarStoolLeague.Models
 {
     public partial class Person
     {

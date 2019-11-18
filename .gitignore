@@ -59,6 +59,21 @@ artifacts/
 # StyleCop
 StyleCopReport.xml
 
+# CodeRush
+.cr/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+
 # Files built by Visual Studio
 *_i.c
 *_p.c

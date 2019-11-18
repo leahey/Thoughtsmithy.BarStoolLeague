@@ -7,7 +7,7 @@ namespace Thoughtsmithy.BarStoolLeague.Repositories
     /// <summary>
     /// Defines a repository object specifically for <see cref="Person"/>.
     /// </summary>
-    public interface IPersonRepository : IRepository<Person>
+    public interface IPersonRepository : IRepository<Person, string>
     {
     }
 }

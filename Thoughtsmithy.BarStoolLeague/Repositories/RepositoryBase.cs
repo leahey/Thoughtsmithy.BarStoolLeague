@@ -4,7 +4,7 @@ using Thoughtsmithy.BarStoolLeague.Models;
 
 namespace Thoughtsmithy.BarStoolLeague.Repositories
 {
-    public abstract class RepositoryBase<TEntity>
+    public abstract class RepositoryBase<TEntity, TKey>
     {
         protected readonly BarStoolLeagueContext DbContext;
 
