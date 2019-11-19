@@ -11,7 +11,10 @@ namespace Thoughtsmithy.BarStoolLeague.Models.Configurations
         {
             builder.ToTable("People");
 
-            builder.HasNoKey();
+            // customized section
+            //builder.HasNoKey();
+            builder.HasKey(e => e.PlayerId);
+            // --------------
 
             builder.Property(e => e.Bats).HasColumnName("bats").HasMaxLength(255);
             builder.Property(e => e.BbrefId).HasColumnName("bbrefID").HasMaxLength(255);

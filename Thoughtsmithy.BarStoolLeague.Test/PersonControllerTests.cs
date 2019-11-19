@@ -1,16 +1,16 @@
-using Moq;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Newtonsoft.Json;
+using TestSupport.EfHelpers;
 using Thoughtsmithy.BarStoolLeague.Controllers;
 using Thoughtsmithy.BarStoolLeague.Models;
 using Xunit;
 
 namespace Thoughtsmithy.BarStoolLeague.Test
 {
-    public class PersonControllerTests
+    public class PersonControllerTests : IDisposable
     {
         #region const
         private const string person01 = "{\"playerId\":\"aardsda01\",\"birthYear\":1981,\"birthMonth\":12,\"birthDay\":27,\"birthCountry\":\"USA\",\"birthState\":\"CO\",\"birthCity\":\"Denver\",\"deathYear\":null,\"deathMonth\":null,\"deathDay\":null,\"deathCountry\":null,\"deathState\":null,\"deathCity\":null,\"nameFirst\":\"David\",\"nameLast\":\"Aardsma\",\"nameGiven\":\"David Allan\",\"weight\":215,\"height\":75,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"2004-04-06 00:00:00\",\"finalGame\":\"2015-08-23 00:00:00\",\"retroId\":\"aardd001\",\"bbrefId\":\"aardsda01\"}";
@@ -36,71 +36,146 @@ namespace Thoughtsmithy.BarStoolLeague.Test
         private const string person10Id = "abbeych01";
         #endregion
 
-        #region private
-        private Mock<BarStoolLeagueContext> contextMock;
-        private readonly Dictionary<string, Person> peopleList = new Dictionary<string, Person>();
-        #endregion
+        private BarStoolLeagueContext context;
+        private PersonController tested;
 
         #region setup
-        private void PopulatePersonList()
-        {
-            peopleList.Clear();
-
-            DeserializeAndAddTo(person01, person01Id);
-            DeserializeAndAddTo(person02, person02Id);
-            DeserializeAndAddTo(person03, person03Id);
-            DeserializeAndAddTo(person04, person04Id);
-            DeserializeAndAddTo(person05, person05Id);
-            DeserializeAndAddTo(person06, person06Id);
-            DeserializeAndAddTo(person07, person07Id);
-            DeserializeAndAddTo(person08, person08Id);
-            DeserializeAndAddTo(person09, person09Id);
-            DeserializeAndAddTo(person10, person10Id);
-        }
-
-        private void DeserializeAndAddTo(string json, string key)
-        {
-            var peep = new Person();
-            JsonConvert.PopulateObject(json, peep);
-            peopleList.Add(key, peep);
-        }
-
         public PersonControllerTests()
         {
-            PopulatePersonList();
-            contextMock = new Mock<BarStoolLeagueContext>();
-            var returnPerson = new Person();
-
-            //contextMock
-            //    .Setup(m => m.GetById(It.IsAny<string>()))
-            //    .Callback<string>(s => returnPerson = peopleList[s])
-            //    .Returns(() => returnPerson);
-
-            //contextMock
-            //    .Setup(m => m.Get(It.IsAny<int>(), It.IsAny<int>()))
-            //    .Returns(peopleList.Values.Take(50).AsQueryable());
-
-            //contextMock
-            //    .Setup(m => m.TotalCount)
-            //    .Returns(peopleList.Count);
+            SetupTestData();
+            tested = new PersonController(context);
         }
+
+        private void SetupTestData()
+        {
+            var options = SqliteInMemory.CreateOptions<BarStoolLeagueContext>();
+            context = new BarStoolLeagueContext(options);
+            context.Database.EnsureCreated();
+            SeedDatabaseForTests(context);
+        }
+
+        private void SeedDatabaseForTests(BarStoolLeagueContext context)
+        {
+            DeserializeAndAddTo(person01, context);
+            DeserializeAndAddTo(person02, context);
+            DeserializeAndAddTo(person03, context);
+            DeserializeAndAddTo(person04, context);
+            DeserializeAndAddTo(person05, context);
+            DeserializeAndAddTo(person06, context);
+            DeserializeAndAddTo(person07, context);
+            DeserializeAndAddTo(person08, context);
+            DeserializeAndAddTo(person09, context);
+            DeserializeAndAddTo(person10, context);
+
+            context.SaveChanges();
+        }
+
+        private void DeserializeAndAddTo(string json, BarStoolLeagueContext context)
+        {
+            var person = new Person();
+            JsonConvert.PopulateObject(json, person);
+            context.Persons.Add(person);
+
+        }
+
         #endregion
 
-        //#region tests
-        //[Fact]
-        //public void GetPerson_ById_ValidId_ShouldReturnCorrectPerson()
-        //{
-        //    // arrange
-        //    var tested = new PersonController(contextMock.Object);
-        //    var expected = "David Aardsma";
+        #region tests
+        [Theory]
+        [InlineData(person01Id, "David Aardsma")]
+        [InlineData(person02Id, "Hank Aaron")]
+        [InlineData(person03Id, "Tommie Aaron")]
+        [InlineData(person04Id, "Don Aase")]
+        [InlineData(person05Id, "Andy Abad")]
+        [InlineData(person06Id, "Fernando Abad")]
+        [InlineData(person07Id, "John Abadie")]
+        [InlineData(person08Id, "Ed Abbaticchio")]
+        [InlineData(person09Id, "Bert Abbey")]
+        [InlineData(person10Id, "Charlie Abbey")]
+        private void GetPersonById_IdIsValid_CorrectPersonShouldBeReturned(string playerId, string expected)
+        {
+            var testPerson = tested.GetPerson(playerId);
+            var actual = $"{testPerson.Result.Value.NameFirst} {testPerson.Result.Value.NameLast}";
+            Assert.Equal(expected, actual);
+        }
 
-        //    // act
-        //    var actual = tested.GetPerson(person01Id);
+        [Theory]
+        [InlineData("Aardsma", "David", person01Id)]
+        [InlineData("Aaron", "Hank", person02Id)]
+        [InlineData("Aaron", "Tommie", person03Id)]
+        [InlineData("Aase", "Don", person04Id)]
+        [InlineData("Abad", "Andy", person05Id)]
+        [InlineData("Abad", "Fernando", person06Id)]
+        [InlineData("Abadie", "John", person07Id)]
+        [InlineData("Abbaticchio", "Ed", person08Id)]
+        [InlineData("Abbey", "Bert", person09Id)]
+        [InlineData("Abbey", "Charlie", person10Id)]
+        private void GetPersonByName_NameIsValid_CorrectPersonShouldBeReturned(string lastName, string firstName, string expected)
+        {
+            var actual = tested.GetPerson(lastName, firstName).Result.Value.First();
+            actual.PlayerId.Should().Be(expected);
+        }
 
-        //    // assert
-        //    Assert.Equal(expected, $"{actual.Value.NameFirst} {actual.Value.NameLast}");
-        //}
+        [Theory]
+        [InlineData("Aardsma", "D", person01Id)]
+        [InlineData("Aaron", "", person02Id)] // <-- this only passes because Hank is first
+        [InlineData("Aaron", "Tom", person03Id)]
+        [InlineData("Aase", "on", person04Id)]
+        [InlineData("Abad", "A", person05Id)]
+        [InlineData("Abad", "F", person06Id)]
+        private void GetPersonByName_FirstNameIsPartial_CorrectPersonShouldBeReturned(string lastName, string firstName, string expected)
+        {
+            var actual = tested.GetPerson(lastName, firstName).Result.Value.First();
+            actual.PlayerId.Should().Be(expected);
+        }
 
-        //#endregion
+
+        [Fact]
+        private void GetPersonByName_CaseMismatch_ShouldStillReturnCorrectPerson()
+        {
+            var actual = tested.GetPerson("AARON", "HANK");
+            actual.Result.Value.First().PlayerId.Should().Be(person02Id);
+        }
+
+        [Fact]
+        private void GetPersonById_IdIsInvalid_ShouldReturnFaultedStatus()
+        {
+            var actual = tested.GetPerson("invalid");
+            actual.Status.Should().Be(TaskStatus.Faulted);
+        }
+
+        [Fact]
+        private void GetPersons_SpecifyPageAndSize_ShouldReturnCorrectItems()
+        {
+            var actual = tested.GetPersons(1, 3);
+            actual.Result.Value.Count().Should().Be(3);
+        }
+
+
+
+        #endregion
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose() =>
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+        #endregion
+
     }
 }
