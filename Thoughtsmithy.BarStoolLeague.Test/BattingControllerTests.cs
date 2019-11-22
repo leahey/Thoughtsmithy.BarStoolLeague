@@ -5,6 +5,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using TestSupport.EfHelpers;
 using Thoughtsmithy.BarStoolLeague.Controllers;
+using Thoughtsmithy.BarStoolLeague.Data;
 using Thoughtsmithy.BarStoolLeague.Models;
 using Xunit;
 
@@ -13,6 +14,13 @@ namespace Thoughtsmithy.BarStoolLeague.Test
     public class BattingControllerTests : IDisposable
     {
         #region const
+        private const string person01 = "{\"playerId\":\"aardsda01\",\"birthYear\":1981,\"birthMonth\":12,\"birthDay\":27,\"birthCountry\":\"USA\",\"birthState\":\"CO\",\"birthCity\":\"Denver\",\"deathYear\":null,\"deathMonth\":null,\"deathDay\":null,\"deathCountry\":null,\"deathState\":null,\"deathCity\":null,\"nameFirst\":\"David\",\"nameLast\":\"Aardsma\",\"nameGiven\":\"David Allan\",\"weight\":215,\"height\":75,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"2004-04-06 00:00:00\",\"finalGame\":\"2015-08-23 00:00:00\",\"retroId\":\"aardd001\",\"bbrefId\":\"aardsda01\"}";
+        private const string person02 = "{\"playerId\":\"aaronha01\",\"birthYear\":1934,\"birthMonth\":2,\"birthDay\":5,\"birthCountry\":\"USA\",\"birthState\":\"AL\",\"birthCity\":\"Mobile\",\"deathYear\":null,\"deathMonth\":null,\"deathDay\":null,\"deathCountry\":null,\"deathState\":null,\"deathCity\":null,\"nameFirst\":\"Hank\",\"nameLast\":\"Aaron\",\"nameGiven\":\"Henry Louis\",\"weight\":180,\"height\":72,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"1954-04-13 00:00:00\",\"finalGame\":\"1976-10-03 00:00:00\",\"retroId\":\"aaroh101\",\"bbrefId\":\"aaronha01\"}";
+        private const string person03 = "{\"playerId\":\"aaronto01\",\"birthYear\":1939,\"birthMonth\":8,\"birthDay\":5,\"birthCountry\":\"USA\",\"birthState\":\"AL\",\"birthCity\":\"Mobile\",\"deathYear\":1984,\"deathMonth\":8,\"deathDay\":16,\"deathCountry\":\"USA\",\"deathState\":\"GA\",\"deathCity\":\"Atlanta\",\"nameFirst\":\"Tommie\",\"nameLast\":\"Aaron\",\"nameGiven\":\"Tommie Lee\",\"weight\":190,\"height\":75,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"1962-04-10 00:00:00\",\"finalGame\":\"1971-09-26 00:00:00\",\"retroId\":\"aarot101\",\"bbrefId\":\"aaronto01\"}";
+        private const string person04 = "{\"playerId\":\"aasedo01\",\"birthYear\":1954,\"birthMonth\":9,\"birthDay\":8,\"birthCountry\":\"USA\",\"birthState\":\"CA\",\"birthCity\":\"Orange\",\"deathYear\":null,\"deathMonth\":null,\"deathDay\":null,\"deathCountry\":null,\"deathState\":null,\"deathCity\":null,\"nameFirst\":\"Don\",\"nameLast\":\"Aase\",\"nameGiven\":\"Donald William\",\"weight\":190,\"height\":75,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"1977-07-26 00:00:00\",\"finalGame\":\"1990-10-03 00:00:00\",\"retroId\":\"aased001\",\"bbrefId\":\"aasedo01\"}";
+        private const string person05 = "{\"playerId\":\"huelsfr01\",\"birthYear\":1874,\"birthMonth\":6,\"birthDay\":5,\"birthCountry\":\"USA\",\"birthState\":\"MO\",\"birthCity\":\"St. Louis\",\"deathYear\":1959,\"deathMonth\":6,\"deathDay\":9,\"deathCountry\":null,\"deathState\":null,\"deathCity\":null,\"nameFirst\":\"Frank\",\"nameLast\":\"Huelsman\",\"nameGiven\":\"Frank Elmer\",\"weight\":190,\"height\":75,\"bats\":\"R\",\"throws\":\"R\",\"debut\":\"1977-07-26 00:00:00\",\"finalGame\":\"1990-10-03 00:00:00\",\"retroId\":\"aased001\",\"bbrefId\":\"aasedo01\"}";
+
+
         private const string batting01 = "{\"PlayerID\":\"aardsda01\",\"YearID\":2004,\"Stint\":1,\"TeamID\":\"SFN\",\"LgID\":\"NL\",\"G\":11,\"G_batting\":null,\"AB\":0,\"R\":0,\"H\":0,\"_2B\":0,\"_3B\":0,\"HR\":0,\"RBI\":0,\"SB\":0,\"CS\":0,\"BB\":0,\"SO\":0,\"IBB\":0,\"HBP\":0,\"SH\":0,\"SF\":0,\"GIDP\":0}";
         private const string batting02 = "{\"PlayerID\":\"aardsda01\",\"YearID\":2006,\"Stint\":1,\"TeamID\":\"CHN\",\"LgID\":\"NL\",\"G\":45,\"G_batting\":null,\"AB\":2,\"R\":0,\"H\":0,\"_2B\":0,\"_3B\":0,\"HR\":0,\"RBI\":0,\"SB\":0,\"CS\":0,\"BB\":0,\"SO\":0,\"IBB\":0,\"HBP\":0,\"SH\":1,\"SF\":0,\"GIDP\":0}";
         private const string batting03 = "{\"PlayerID\":\"aardsda01\",\"YearID\":2007,\"Stint\":1,\"TeamID\":\"CHA\",\"LgID\":\"AL\",\"G\":25,\"G_batting\":null,\"AB\":0,\"R\":0,\"H\":0,\"_2B\":0,\"_3B\":0,\"HR\":0,\"RBI\":0,\"SB\":0,\"CS\":0,\"BB\":0,\"SO\":0,\"IBB\":0,\"HBP\":0,\"SH\":0,\"SF\":0,\"GIDP\":0}";
@@ -84,57 +92,70 @@ namespace Thoughtsmithy.BarStoolLeague.Test
 
         private void SeedDatabaseForTests(BarStoolLeagueContext context)
         {
-            DeserializeAndAddTo(batting01, context);
-            DeserializeAndAddTo(batting02, context);
-            DeserializeAndAddTo(batting03, context);
-            DeserializeAndAddTo(batting04, context);
-            DeserializeAndAddTo(batting05, context);
-            DeserializeAndAddTo(batting06, context);
-            DeserializeAndAddTo(batting07, context);
-            DeserializeAndAddTo(batting08, context);
-            DeserializeAndAddTo(batting09, context);
-            DeserializeAndAddTo(batting10, context);
-            DeserializeAndAddTo(batting11, context);
-            DeserializeAndAddTo(batting12, context);
-            DeserializeAndAddTo(batting13, context);
-            DeserializeAndAddTo(batting14, context);
-            DeserializeAndAddTo(batting15, context);
-            DeserializeAndAddTo(batting16, context);
-            DeserializeAndAddTo(batting17, context);
-            DeserializeAndAddTo(batting18, context);
-            DeserializeAndAddTo(batting19, context);
-            DeserializeAndAddTo(batting20, context);
-            DeserializeAndAddTo(batting21, context);
-            DeserializeAndAddTo(batting22, context);
-            DeserializeAndAddTo(batting23, context);
-            DeserializeAndAddTo(batting24, context);
-            DeserializeAndAddTo(batting25, context);
-            DeserializeAndAddTo(batting26, context);
-            DeserializeAndAddTo(batting27, context);
-            DeserializeAndAddTo(batting28, context);
-            DeserializeAndAddTo(batting29, context);
-            DeserializeAndAddTo(batting30, context);
-            DeserializeAndAddTo(batting31, context);
-            DeserializeAndAddTo(batting32, context);
-            DeserializeAndAddTo(batting33, context);
-            DeserializeAndAddTo(batting34, context);
-            DeserializeAndAddTo(batting35, context);
-            DeserializeAndAddTo(batting36, context);
-            DeserializeAndAddTo(batting37, context);
-            DeserializeAndAddTo(batting38, context);
-            DeserializeAndAddTo(batting39, context);
-            DeserializeAndAddTo(batting40, context);
+            DeserializeAndAddPlayer(person01, context);
+            DeserializeAndAddPlayer(person02, context);
+            DeserializeAndAddPlayer(person03, context);
+            DeserializeAndAddPlayer(person04, context);
+            DeserializeAndAddPlayer(person05, context);
+
+            DeserializeAndAddBatting(batting01, context);
+            DeserializeAndAddBatting(batting02, context);
+            DeserializeAndAddBatting(batting03, context);
+            DeserializeAndAddBatting(batting04, context);
+            DeserializeAndAddBatting(batting05, context);
+            DeserializeAndAddBatting(batting06, context);
+            DeserializeAndAddBatting(batting07, context);
+            DeserializeAndAddBatting(batting08, context);
+            DeserializeAndAddBatting(batting09, context);
+            DeserializeAndAddBatting(batting10, context);
+            DeserializeAndAddBatting(batting11, context);
+            DeserializeAndAddBatting(batting12, context);
+            DeserializeAndAddBatting(batting13, context);
+            DeserializeAndAddBatting(batting14, context);
+            DeserializeAndAddBatting(batting15, context);
+            DeserializeAndAddBatting(batting16, context);
+            DeserializeAndAddBatting(batting17, context);
+            DeserializeAndAddBatting(batting18, context);
+            DeserializeAndAddBatting(batting19, context);
+            DeserializeAndAddBatting(batting20, context);
+            DeserializeAndAddBatting(batting21, context);
+            DeserializeAndAddBatting(batting22, context);
+            DeserializeAndAddBatting(batting23, context);
+            DeserializeAndAddBatting(batting24, context);
+            DeserializeAndAddBatting(batting25, context);
+            DeserializeAndAddBatting(batting26, context);
+            DeserializeAndAddBatting(batting27, context);
+            DeserializeAndAddBatting(batting28, context);
+            DeserializeAndAddBatting(batting29, context);
+            DeserializeAndAddBatting(batting30, context);
+            DeserializeAndAddBatting(batting31, context);
+            DeserializeAndAddBatting(batting32, context);
+            DeserializeAndAddBatting(batting33, context);
+            DeserializeAndAddBatting(batting34, context);
+            DeserializeAndAddBatting(batting35, context);
+            DeserializeAndAddBatting(batting36, context);
+            DeserializeAndAddBatting(batting37, context);
+            DeserializeAndAddBatting(batting38, context);
+            DeserializeAndAddBatting(batting39, context);
+            DeserializeAndAddBatting(batting40, context);
             // multi-stints
-            DeserializeAndAddTo(batting41, context);
-            DeserializeAndAddTo(batting42, context);
-            DeserializeAndAddTo(batting43, context);
-            DeserializeAndAddTo(batting44, context);
-            DeserializeAndAddTo(batting45, context);
+            DeserializeAndAddBatting(batting41, context);
+            DeserializeAndAddBatting(batting42, context);
+            DeserializeAndAddBatting(batting43, context);
+            DeserializeAndAddBatting(batting44, context);
+            DeserializeAndAddBatting(batting45, context);
 
             context.SaveChanges();
         }
 
-        private void DeserializeAndAddTo(string json, BarStoolLeagueContext context)
+        private void DeserializeAndAddPlayer(string json, BarStoolLeagueContext context)
+        {
+            var person = new Person();
+            JsonConvert.PopulateObject(json, person);
+            context.Persons.Add(person);
+        }
+
+        private void DeserializeAndAddBatting(string json, BarStoolLeagueContext context)
         {
             var batting = new Batting();
             JsonConvert.PopulateObject(json, batting);
@@ -162,7 +183,7 @@ namespace Thoughtsmithy.BarStoolLeague.Test
         private void GetBatting_ProvidePlayerYearAndStint_ShouldReturnCorrectAtBatStat(string playerId, short year, short stint, short expected)
         {
             var actual = tested.GetBatting(playerId, year, stint);
-            actual.Result.Value.Ab.Should().Be(expected);
+            actual.Result.Value.AB.Should().Be(expected);
         }
 
         [Theory]
@@ -175,7 +196,7 @@ namespace Thoughtsmithy.BarStoolLeague.Test
         private void GetBatting_ProvidePlayerAndYear_ShouldReturnCorrectAtBatStat(string playerId, short year, short expected)
         {
             var batting = tested.GetBatting(playerId, year);
-            var actual = batting.Result.Value.Sum(b => b.Ab);
+            var actual = batting.Result.Value.Sum(b => b.AB);
             actual.Should().Be(expected);
         }
 
@@ -189,7 +210,7 @@ namespace Thoughtsmithy.BarStoolLeague.Test
         private void GetBatting_ProvidePlayerId_ShouldReturnCorrectCareerHRCount(string playerId, short expected)
         {
             var batting = tested.GetBatting(playerId);
-            var actual = batting.Result.Value.Sum(b => b.Hr);
+            var actual = batting.Result.Value.Sum(b => b.HR);
             actual.Should().Be(expected);
         }
 

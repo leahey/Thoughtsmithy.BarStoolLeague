@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Thoughtsmithy.BarStoolLeague.Data;
 using Thoughtsmithy.BarStoolLeague.Models;
 
 namespace Thoughtsmithy.BarStoolLeague.Controllers
@@ -31,10 +32,10 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         public async Task<ActionResult<Person>> GetPerson(string id)
         {
             var trimmedId = id.Trim('"');
-            var person = await context.Persons.Where(p => p.PlayerId.Equals(trimmedId)).FirstAsync();
+            //var person = await context.Persons.Where(p => p.PlayerId.Equals(trimmedId)).FirstAsync();
             
             // Because we have no primary key, can't use Find()
-            //var person = await _context.Persons.FindAsync(id);
+            var person = await context.Persons.FindAsync(id);
             // TODO: nb: this may no longer be true with PersonConfiguration forcing a key.
 
             if (person == null)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Thoughtsmithy.BarStoolLeague;
+using Thoughtsmithy.BarStoolLeague.Data;
 using Thoughtsmithy.BarStoolLeague.Models;
 
 namespace Thoughtsmithy.BarStoolLeague.Controllers

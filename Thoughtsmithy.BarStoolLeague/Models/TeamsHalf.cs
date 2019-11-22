@@ -6,7 +6,7 @@ namespace Thoughtsmithy.BarStoolLeague.Models
     public partial class TeamsHalf
     {
         public short YearId { get; set; }
-        public string LgId { get; set; }
+        public string LeagueId { get; set; }
         public string TeamId { get; set; }
         public string Half { get; set; }
         public string DivId { get; set; }
@@ -15,5 +15,7 @@ namespace Thoughtsmithy.BarStoolLeague.Models
         public short? G { get; set; }
         public short? W { get; set; }
         public short? L { get; set; }
+
+        public virtual Teams Teams { get; set; }
     }
 }

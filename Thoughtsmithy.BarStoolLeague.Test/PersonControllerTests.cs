@@ -5,6 +5,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using TestSupport.EfHelpers;
 using Thoughtsmithy.BarStoolLeague.Controllers;
+using Thoughtsmithy.BarStoolLeague.Data;
 using Thoughtsmithy.BarStoolLeague.Models;
 using Xunit;
 

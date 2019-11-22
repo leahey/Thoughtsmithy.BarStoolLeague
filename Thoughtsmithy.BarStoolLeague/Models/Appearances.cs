@@ -7,24 +7,27 @@ namespace Thoughtsmithy.BarStoolLeague.Models
     {
         public short YearId { get; set; }
         public string TeamId { get; set; }
-        public string LgId { get; set; }
+        public string LeagueId { get; set; }
         public string PlayerId { get; set; }
-        public short? GAll { get; set; }
-        public short? Gs { get; set; }
-        public short? GBatting { get; set; }
-        public short? GDefense { get; set; }
-        public short? GP { get; set; }
-        public short? GC { get; set; }
-        public short? G1b { get; set; }
-        public short? G2b { get; set; }
-        public short? G3b { get; set; }
-        public short? GSs { get; set; }
-        public short? GLf { get; set; }
-        public short? GCf { get; set; }
-        public short? GRf { get; set; }
-        public short? GOf { get; set; }
-        public short? GDh { get; set; }
-        public short? GPh { get; set; }
-        public short? GPr { get; set; }
+        public short? G_all { get; set; }
+        public short? GS { get; set; }
+        public short? G_batting { get; set; }
+        public short? G_defense { get; set; }
+        public short? G_p { get; set; }
+        public short? G_c { get; set; }
+        public short? G_1b { get; set; }
+        public short? G_2b { get; set; }
+        public short? G_3b { get; set; }
+        public short? G_ss { get; set; }
+        public short? G_lf { get; set; }
+        public short? G_cf { get; set; }
+        public short? G_rf { get; set; }
+        public short? G_of { get; set; }
+        public short? G_dh { get; set; }
+        public short? G_ph { get; set; }
+        public short? G_pr { get; set; }
+
+        public virtual Teams Teams { get; set; }
+        public virtual Person Player { get; set; }
     }
 }

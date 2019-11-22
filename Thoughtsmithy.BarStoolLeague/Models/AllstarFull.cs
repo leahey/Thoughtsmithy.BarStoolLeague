@@ -10,8 +10,11 @@ namespace Thoughtsmithy.BarStoolLeague.Models
         public short GameNum { get; set; }
         public string GameId { get; set; }
         public string TeamId { get; set; }
-        public string LgId { get; set; }
-        public short? Gp { get; set; }
+        public string LeagueId { get; set; }
+        public short? GP { get; set; }
         public short? StartingPos { get; set; }
+
+        public virtual Teams Teams { get; set; }
+        public virtual Person Player { get; set; }
     }
 }
