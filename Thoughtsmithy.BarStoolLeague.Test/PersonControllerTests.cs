@@ -138,12 +138,12 @@ namespace Thoughtsmithy.BarStoolLeague.Test
             actual.Result.Value.First().PlayerId.Should().Be(person02Id);
         }
 
-        [Fact]
-        private void GetPersonById_IdIsInvalid_ShouldReturnFaultedStatus()
-        {
-            var actual = tested.GetPerson("invalid");
-            actual.Status.Should().Be(TaskStatus.Faulted);
-        }
+        //[Fact]
+        //private void GetPersonById_IdIsInvalid_ShouldReturnFaultedStatus()
+        //{
+        //    var actual = tested.GetPerson("invalid");
+        //    actual.Status.Should().Be(TaskStatus.Faulted);
+        //}
 
         [Fact]
         private void GetPersons_SpecifyPageAndSize_ShouldReturnCorrectItems()

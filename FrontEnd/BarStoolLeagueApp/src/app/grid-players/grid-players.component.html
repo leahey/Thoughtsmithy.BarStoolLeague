@@ -1,0 +1,19 @@
+<h2>Players</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Birthdate</th>
+            <th>Debut</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr **ngFor="let player of playerData">
+            <td>{{ player.NameFirst }}</td>
+            <td>{{ player.NameLast }}</td>
+            <td>{{ player.BirthMonth"/"player.BirthDay"/"player.BirthYear</td>
+            <td>{{ player.Debut }}</td>
+        </tr>
+    </tbody>
+</table>

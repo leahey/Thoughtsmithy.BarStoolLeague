@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thoughtsmithy.BarStoolLeagu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thoughtsmithy.BarStoolLeague.Test", "Thoughtsmithy.BarStoolLeague.Test\Thoughtsmithy.BarStoolLeague.Test.csproj", "{76532DFA-EBBB-4A65-B0D2-62FD62484825}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarStoolLeagueApp", "BarStoolLeagueApp\BarStoolLeagueApp.csproj", "{4E77F476-72C6-46A6-B1AA-A72C02CE5210}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{76532DFA-EBBB-4A65-B0D2-62FD62484825}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76532DFA-EBBB-4A65-B0D2-62FD62484825}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76532DFA-EBBB-4A65-B0D2-62FD62484825}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E77F476-72C6-46A6-B1AA-A72C02CE5210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E77F476-72C6-46A6-B1AA-A72C02CE5210}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E77F476-72C6-46A6-B1AA-A72C02CE5210}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E77F476-72C6-46A6-B1AA-A72C02CE5210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

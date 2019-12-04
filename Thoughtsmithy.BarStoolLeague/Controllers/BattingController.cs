@@ -56,12 +56,12 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         [HttpGet("{id}/{year}/{stint}")]
         public async Task<ActionResult<Batting>> GetBatting(string id, short year, short stint)
         {
-            var batting = await _context.Batting.FindAsync(id, year, stint);
+            var result = await _context.Batting.FindAsync(id, year, stint);
 
-            if (batting == null)
+            if (result == null)
                 return NotFound();
 
-            return batting;
+            return result;
         }
 
     }

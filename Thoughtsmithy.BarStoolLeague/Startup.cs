@@ -26,6 +26,14 @@ namespace Thoughtsmithy.BarStoolLeague
                 .AddNewtonsoftJson(options =>
                     // reference loop handling
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            //services.AddCors(opt =>
+            //{
+            //    opt.AddPolicy("CorsPolicy",
+            //        builder => builder.AllowAnyOrigin()
+            //            .AllowAnyMethod()
+            //            .AllowAnyHeader()
+            //            .AllowCredentials());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +44,8 @@ namespace Thoughtsmithy.BarStoolLeague
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

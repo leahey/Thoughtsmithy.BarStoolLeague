@@ -24,7 +24,12 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons(int page = 0, int pageSize = 50)
         {
-            return await context.Persons.Skip(page * pageSize).Take(pageSize).ToListAsync();
+            return await context
+                .Persons
+                    .Include(person => person.Batting)
+                    .Include(person => person.Fielding)
+                    .Skip(page * pageSize)
+                    .Take(pageSize).ToListAsync();
         }
 
         // GET: api/Person/byId?id=aaronha01
@@ -33,15 +38,18 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         {
             var trimmedId = id.Trim('"');
             //var person = await context.Persons.Where(p => p.PlayerId.Equals(trimmedId)).FirstAsync();
-            
-            // Because we have no primary key, can't use Find()
-            var person = await context.Persons.FindAsync(id);
-            // TODO: nb: this may no longer be true with PersonConfiguration forcing a key.
 
-            if (person == null)
-                return NotFound();
+            var result = await context
+                .Persons
+                .Where(person => person.PlayerId == id)
+                .Include(person => person.Batting)
+                .Include(person => person.Fielding)
+                .FirstAsync();
 
-            return person;
+
+            //.FindAsync(id);
+
+            return result == null ? NotFound() : (ActionResult<Person>)result;
         }
 
         // GET: api/Person/byName?lastName=Aaron&firstName=Hank
@@ -56,6 +64,8 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
             var result = await context.Persons
                 .Where(p => p.NameLast.ToUpper() == trimmedLastName)
                 .Where(p => p.NameFirst.ToUpper().Contains(trimmedFirstName))
+                .Include(person => person.Batting)
+                .Include(person => person.Fielding)
                 .ToListAsync();
 
             if (result.Count == 0)
