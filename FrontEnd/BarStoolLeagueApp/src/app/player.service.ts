@@ -12,6 +12,7 @@ export class PlayerService {
    }
 
    public get() {
-     return this.http.get(this.accessPointUrl, {headers: this.headers});
+    const result = this.http.get(this.accessPointUrl, {headers: this.headers});
+    return result;
    }
 }

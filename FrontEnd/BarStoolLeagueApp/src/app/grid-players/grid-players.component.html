@@ -6,14 +6,16 @@
             <th>First Name</th>
             <th>Birthdate</th>
             <th>Debut</th>
+            <th>Batting Rows</th>
         </tr>
     </thead>
     <tbody>
-        <tr **ngFor="let player of playerData">
-            <td>{{ player.NameFirst }}</td>
-            <td>{{ player.NameLast }}</td>
-            <td>{{ player.BirthMonth"/"player.BirthDay"/"player.BirthYear</td>
-            <td>{{ player.Debut }}</td>
+        <tr *ngFor="let player of playerData">
+            <td>{{ player.nameLast }}</td>
+            <td>{{ player.nameFirst }}</td>
+            <td>{{ player.birthMonth }}/{{ player.birthDay }}/{{ player.birthYear }}</td>
+            <td>{{ player.debut | date:'dd/MM/yyyy' }}</td>
+            <td>{{ player.batting.length }}</td>
         </tr>
     </tbody>
 </table>

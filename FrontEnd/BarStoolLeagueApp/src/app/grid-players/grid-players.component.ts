@@ -6,7 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./grid-players.component.css']
 })
 export class GridPlayersComponent implements OnInit {
-  @Input() playerData: Array<any>;
+  @Input()
+  playerData: Array<any>;
 
   constructor() { }
 

@@ -10,7 +10,12 @@ export class HomeComponent implements OnInit {
   public playerData: Array<any>;
 
   constructor(private playerService: PlayerService) {
-    playerService.get().subscribe((data: any) => this.playerData = data);
+    const players = playerService.get();
+
+    players.subscribe((data: any) => {
+      this.playerData = data;
+      console.log(this.playerData);
+    });
    }
 
   ngOnInit() {
