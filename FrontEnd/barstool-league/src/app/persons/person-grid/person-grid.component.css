@@ -1,0 +1,24 @@
+table {
+    margin-top: 1.5em;
+    width: 100%;
+}
+
+thead {
+    border-bottom: 1px solid black;
+}
+
+td {
+    padding-right: 10px;
+}
+
+td.right {
+    text-align: right;
+}
+
+td.left {
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #eeeeee;
+}

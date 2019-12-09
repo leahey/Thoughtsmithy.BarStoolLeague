@@ -1,0 +1,25 @@
+<h2>People</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birthdate</th>
+            <th>Debut</th>
+            <th>Batting Rows</th>
+            <th>Player</th>
+            <th>Manager</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of personData">
+            <!-- <app-person-row [person]="person"></app-person-row> -->
+            <td class="left">{{ person.nameLast }}, {{ person.nameFirst }}</td>
+            <td class="right">{{ person.birthMonth }}/{{ person.birthDay }}/{{ person.birthYear }}</td>
+            <td class="right">{{ person.debut | date:'dd/MM/yyyy' }}</td>
+            <td class="right">{{ person.batting.length }}</td>
+            <td class="left"><div *ngIf="true">Player</div></td>
+            <td class="left"><div *ngIf="true">Manager</div></td>
+            <!-- <app-person-bio [person]="person"></app-person-bio> -->
+        </tr>
+    </tbody>
+</table>
