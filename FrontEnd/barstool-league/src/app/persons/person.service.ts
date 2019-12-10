@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Person } from './person';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class PersonService {
@@ -10,7 +12,13 @@ export class PersonService {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  public get() {
-    return this.http.get(this.accessPointUrl, {headers: this.headers});
+  public get(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.accessPointUrl, {headers: this.headers});
   }
+
+  public getPersonById(personId: string): Observable<Person> {
+    const params = new HttpParams().set('id', personId);
+    const result = this.http.get<Person>(this.accessPointUrl, {headers: this.headers, params});
+    return result;
+   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from 'src/app/persons/person.service';
+import { Person } from 'src/app/persons/person';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +8,12 @@ import { PersonService } from 'src/app/persons/person.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public personData: Array<any>;
+  public personData: Array<Person>;
 
-  constructor(private personService: PersonService) {
+  constructor(personService: PersonService) {
     const persons = personService.get();
 
-    persons.subscribe((data: any) => {
+    persons.subscribe((data: Array<Person>) => {
       this.personData = data;
     });
   }

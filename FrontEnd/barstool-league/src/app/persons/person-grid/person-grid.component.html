@@ -13,7 +13,11 @@
     <tbody>
         <tr *ngFor="let person of personData">
             <!-- <app-person-row [person]="person"></app-person-row> -->
-            <td class="left">{{ person.nameLast }}, {{ person.nameFirst }}</td>
+            <td class="left">
+                <a [routerLink]="['/person', person.playerId]" routerLinkActive="router-link-active">
+                    {{ person.nameLast }}, {{ person.nameFirst }}
+                </a>
+            </td>
             <td class="right">{{ person.birthMonth }}/{{ person.birthDay }}/{{ person.birthYear }}</td>
             <td class="right">{{ person.debut | date:'dd/MM/yyyy' }}</td>
             <td class="right">{{ person.batting.length }}</td>

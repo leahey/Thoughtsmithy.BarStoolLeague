@@ -13,6 +13,8 @@ import { PersonService } from './persons/person.service';
 import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
+  { path: 'person/:id', component: PersonDetailComponent},
+  { path: 'person', component: PersonGridComponent },
   { path: '', component: HomeComponent }
 ];
 

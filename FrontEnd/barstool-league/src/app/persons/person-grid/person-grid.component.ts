@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Person } from '../person';
 
 @Component({
   selector: 'app-person-grid',
@@ -6,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./person-grid.component.css']
 })
 export class PersonGridComponent implements OnInit {
-  @Input() personData: Array<any>;
+  @Input() personData: Observable<Array<Person>>;
 
   constructor() { }
 
