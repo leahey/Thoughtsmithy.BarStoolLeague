@@ -26,8 +26,8 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         {
             return await context
                 .Persons
-                    .Include(person => person.Batting)
-                    .Include(person => person.Fielding)
+                    .Include(person => person.Appearances) // for ifPlayer
+                    .Include(person => person.Managers)    // for ifManager
                     .Skip(page * pageSize)
                     .Take(pageSize).ToListAsync();
         }
@@ -36,14 +36,16 @@ namespace Thoughtsmithy.BarStoolLeague.Controllers
         [HttpGet("byId")]
         public async Task<ActionResult<Person>> GetPerson(string id)
         {
-            var trimmedId = id.Trim('"');
-            //var person = await context.Persons.Where(p => p.PlayerId.Equals(trimmedId)).FirstAsync();
-
             var result = await context
                 .Persons
                 .Where(person => person.PlayerId == id)
+                .Include(person => person.Appearances)
                 .Include(person => person.Batting)
+                .Include(person => person.BattingPost)
                 .Include(person => person.Fielding)
+                .Include(person => person.FieldingPost)
+                .Include(person => person.Pitching)
+                .Include(person => person.PitchingPost)
                 .FirstAsync();
 
 

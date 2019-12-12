@@ -1,4 +1,35 @@
-<!-- <h6>{{ person.nameFirst }} {{ person.nameLast> }}</h6>
-<div class="container">
-    <div>Given name: {{ person.nameGiven }}</div>
-</div> -->
+<h5>{{ person.nameGiven }} "{{ person.nameFirst }}" {{ person.nameLast }}</h5>
+<div class="row">
+    <div class="col-3">
+        Born: {{ birthDate | date }}
+    </div>
+    <div class="col-9">
+        {{ placeOfBirth }}
+    </div>
+</div>
+<div class="row" *ngIf="deathDate != ''">
+    <div class="col-3">
+        Died: {{ deathDate | date }}
+    </div>
+    <div class="col-9">
+        {{ placeOfDeath }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">Height: {{ displayHeight }}</div>
+    <div class="col-3">Weight: {{ person.weight }} lbs.</div>
+    <div class="col-3">Bats: {{ person.bats }}</div>
+    <div class="col-3">Throws: {{ person.throws }}</div>
+</div>
+<div class="row">
+    <div class="col-3">Debut: {{ person.debut | date }}</div>
+    <div class="col-3">Final game: {{ person.finalGame | date }}</div>
+    <div class="col-3" *ngIf="isPlayer"> 
+        <a [routerLink]="['person/', person.playerId]" routerLinkActive="router-link-active">
+            as player
+        </a>
+    </div>
+    <div class="col-3" *ngIf="isManager"> 
+        Manager
+    </div>
+</div>

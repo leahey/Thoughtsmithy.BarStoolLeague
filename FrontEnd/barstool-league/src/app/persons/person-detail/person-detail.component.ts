@@ -3,7 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PersonService } from '../person.service';
-import { Person } from '../person';
+import { Person } from '../../shared/models/person.model';
+import { BattingModule } from 'src/app/batting/batting.module';
 
 @Component({
   selector: 'app-person-detail',
@@ -12,7 +13,6 @@ import { Person } from '../person';
 })
 export class PersonDetailComponent implements OnInit {
   person: Person;
-  playerId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,19 +20,13 @@ export class PersonDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.playerId = this.route.snapshot.paramMap.get('id');
-      const person = this.service.getPersonById(this.playerId);
+      const playerId = this.route.snapshot.paramMap.get('id');
+      const obsPerson = this.service.getPersonById(playerId);
 
-      person.subscribe((data: Person) => {
+      obsPerson.subscribe((data: Person) => {
         this.person = data;
       });
 
-      // this.person.subscribe((data: any) => {
-      //   this.person = data;
-      // });
-      //  = this.service.getPersonById(this.playerId);
       console.log(this.person);
-
   }
-
 }

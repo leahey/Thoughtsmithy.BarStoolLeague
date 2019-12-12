@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Person } from '../../shared/models/person.model';
 
 @Component({
   selector: 'app-person-row',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./person-row.component.css']
 })
 export class PersonRowComponent implements OnInit {
-  @Input() person: any;
+  @Input() person: Person;
 
   constructor() { }
 

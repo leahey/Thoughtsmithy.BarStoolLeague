@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Person } from './person';
+import { Person } from '../shared/models/person.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class PersonService {
 
   public getPersonById(personId: string): Observable<Person> {
     const params = new HttpParams().set('id', personId);
-    const result = this.http.get<Person>(this.accessPointUrl, {headers: this.headers, params});
+    const result = this.http.get<Person>(this.accessPointUrl + '/byId', {headers: this.headers, params});
     return result;
    }
 }

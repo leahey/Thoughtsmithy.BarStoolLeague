@@ -14,7 +14,7 @@ namespace Thoughtsmithy.BarStoolLeague.Models
         public short? Won { get; set; }
         public short? Lost { get; set; }
         public short? Rank { get; set; }
-        public string PlayerManagerr { get; set; }
+        public string PlayerManager { get; set; }
 
         public virtual Teams Teams { get; set; }
         public virtual Person Player { get; set; }
