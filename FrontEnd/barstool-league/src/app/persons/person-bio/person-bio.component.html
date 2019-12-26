@@ -24,12 +24,12 @@
 <div class="row">
     <div class="col-3">Debut: {{ person.debut | date }}</div>
     <div class="col-3">Final game: {{ person.finalGame | date }}</div>
-    <div class="col-3" *ngIf="isPlayer"> 
+    <div class="col-3" *ngIf="isPlayer && !isDetail"> 
         <a [routerLink]="['person/', person.playerId]" routerLinkActive="router-link-active">
             as player
         </a>
     </div>
     <div class="col-3" *ngIf="isManager"> 
-        Manager
+        as Manager
     </div>
 </div>

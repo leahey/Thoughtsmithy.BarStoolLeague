@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PersonBioComponent } from './person-bio.component';
+import { RouterModule } from '@angular/router';
+import { Person } from '../../shared/models/person.model';
 
 describe('PersonBioComponent', () => {
   let component: PersonBioComponent;
@@ -8,7 +9,8 @@ describe('PersonBioComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonBioComponent ]
+      declarations: [ PersonBioComponent ],
+      imports: [ RouterModule, Person ]
     })
     .compileComponents();
   }));

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Person } from '../../shared/models/person.model';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,8 +8,11 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./person-grid.component.css']
 })
 export class PersonGridComponent implements OnInit {
-  @Input() personsData: Observable<Array<Person>>;
+  @Input() personsData: Array<Person>;
   page = 1;
+
+  // TODO: store currently expanded personId for re-expansion after reload.
+  public selectedPersonId: string;
 
   constructor(config: NgbPaginationConfig) {
     config.size = 'sm';
@@ -23,5 +25,4 @@ export class PersonGridComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

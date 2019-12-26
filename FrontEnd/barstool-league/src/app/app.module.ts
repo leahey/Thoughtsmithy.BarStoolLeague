@@ -13,6 +13,7 @@ import { PersonService } from './persons/person.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BattingListComponent } from './batting/batting-list/batting-list.component';
+import { FieldingListComponent } from './fielding/fielding-list/fielding-list.component';
 
 const appRoutes: Routes = [
   { path: 'person/:id', component: PersonDetailComponent},
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     PersonBioComponent,
     HomeComponent,
     PersonRowComponent,
-    BattingListComponent
+    BattingListComponent,
+    FieldingListComponent
   ],
   imports: [
     BrowserModule,

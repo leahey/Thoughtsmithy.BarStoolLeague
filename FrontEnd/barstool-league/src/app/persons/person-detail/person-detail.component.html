@@ -1,7 +1,12 @@
 <div class="container">
-    <app-person-bio [person]="person"></app-person-bio>
+    <app-person-bio [person]="person" [isDetail]=true></app-person-bio>
     <div *ngIf="person.batting.length > 0">
-        <h5>Batting</h5>
-        <app-batting-list [battingData]="person.batting"></app-batting-list>
+        <button type="button" class="btn btn-outline-primary mt-4 mb-2" (click)="isBattingCollapsed = !isBattingCollapsed"
+            [attr.aria-expanded]="!isBattingCollapsed" aria-controls="battingPanel">
+            Batting
+        </button>
+        <div id="battingPanel" [ngbCollapse]="isBattingCollapsed">
+            <app-batting-list [battingData]="person.batting"></app-batting-list>
+        </div>
     </div>
 </div>

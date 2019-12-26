@@ -1,4 +1,7 @@
-export class Person {
+import { BattingStint } from './batting-stint.model';
+import { Deserializable } from '../Interfaces/deserializable';
+
+export class Person implements Deserializable {
     playerId: string;
 
     birthYear: number;
@@ -33,7 +36,8 @@ export class Person {
     allstarFull: Array<any>;
     appearances: Array<any>;
     awardsPlayers: Array<any>;
-    batting: Array<any>;
+    batting: Array<BattingStint>;
+    battingPost: Array<any>;
     fieldingOF: Array<any>;
     fieldingOFsplit: Array<any>;
     fieldingPost: Array<any>;
@@ -43,6 +47,13 @@ export class Person {
     pitching: Array<any>;
     pitchingPost: Array<any>;
     salaries: Array<any>;
+
+    // Deserialize JSON object to Person
+    public deserialize(input: any): this {
+        Object.assign(this, input);
+        this.batting = input.batting.map((b: any) => new BattingStint().deserialize(b));
+        return this;
+    }
 
     get isPlayer(): boolean {
         return this.appearances.length > 0;

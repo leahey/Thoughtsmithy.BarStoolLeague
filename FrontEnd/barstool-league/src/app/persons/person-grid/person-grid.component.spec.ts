@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PersonGridComponent } from './person-grid.component';
+import { NgbAccordion, NgbPagination, NgbPanel, NgbPanelHeader, NgbPanelToggle } from '@ng-bootstrap/ng-bootstrap';
+import { PersonRowComponent } from '../person-row/person-row.component';
 
 describe('PersonGridComponent', () => {
   let component: PersonGridComponent;
@@ -8,7 +9,9 @@ describe('PersonGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonGridComponent ]
+      declarations: [ PersonGridComponent, PersonRowComponent,
+        NgbAccordion, NgbPagination, NgbPanel, NgbPanelHeader, NgbPanelToggle
+      ]
     })
     .compileComponents();
   }));

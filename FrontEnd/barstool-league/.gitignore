@@ -36,7 +36,8 @@ speed-measure-plugin*.json
 /connect.lock
 /coverage
 /libpeerconnection.log
-npm-debug.log
+npm-debug.loggit status
+
 yarn-error.log
 testem.log
 /typings
@@ -44,3 +45,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# NDepend
+Coverage Reports/
+NDependOut/

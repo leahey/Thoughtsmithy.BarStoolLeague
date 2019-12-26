@@ -27,21 +27,41 @@
             <td>{{ stint.yearId }}</td>
             <td>{{ stint.teamId }}</td>
             <td>{{ stint.leagueId }}</td>
-            <td>{{ stint.g }}</td>
-            <td>{{ stint.ab }}</td>
-            <td>{{ stint.r }}</td>
-            <td>{{ stint.h }}</td>
-            <td>{{ stint._2B }}</td>
-            <td>{{ stint._3B }}</td>
-            <td>{{ stint.hr }}</td>
-            <td>{{ stint.rbi }}</td>
-            <td>{{ stint.sb }}</td>
-            <td>{{ stint.cs }}</td>
-            <td>{{ stint.bb }}</td>
-            <td>{{ stint.so }}</td>
-            <td>{{ stint.ibb }}</td>
-            <td>{{ stint.hbp }}</td>
-            <td>{{ stint.gidp }}</td>
+            <td>{{ stint.games }}</td>
+            <td>{{ stint.atBats }}</td>
+            <td>{{ stint.runs }}</td>
+            <td>{{ stint.hits }}</td>
+            <td>{{ stint.doubles }}</td>
+            <td>{{ stint.triples }}</td>
+            <td>{{ stint.homeruns }}</td>
+            <td>{{ stint.runsBattedIn }}</td>
+            <td>{{ stint.stolenBases }}</td>
+            <td>{{ stint.caughtStealing }}</td>
+            <td>{{ stint.basesOnBalls }}</td>
+            <td>{{ stint.strikeOuts }}</td>
+            <td>{{ stint.intentionalBasesOnBalls }}</td>
+            <td>{{ stint.hitByPitches }}</td>
+            <td>{{ stint.groundedIntoDoublePlays }}</td>
+        </tr>
+        <tr class="table-dark border-top-0 border-dark">
+            <td placement="top" container="body" ngbTooltip="Total number of years batting">{{ battingCollection.totalYears }}</td>
+            <td> - </td>
+            <td> - </td>
+            <td placement="top" container="body" ngbTooltip="Total number of games in which the player appeared.">{{ battingCollection.totalGamesPlayed }}</td>
+            <td placement="top" container="body" ngbTooltip="Total accumulated At Bats by this player.">{{ battingCollection.totalAtBats }}</td>
+            <td placement="top" container="body" ngbToolTip="Total number of runs scored.">{{ battingCollection.totalRuns }}</td>
+            <td>{{ battingCollection.totalHits }}</td>
+            <td>{{ battingCollection.totalDoubles }}</td>
+            <td>{{ battingCollection.totalTriples }}</td>
+            <td>{{ battingCollection.totalHomeruns }}</td>
+            <td>{{ battingCollection.totalRunsBattedIn }}</td>
+            <td>{{ battingCollection.totalStolenBases }}</td>
+            <td>{{ battingCollection.totalCaughtStealings }}</td>
+            <td>{{ battingCollection.totalBasesOnBalls }}</td>
+            <td>{{ battingCollection.totalStrikeOuts }}</td>
+            <td>{{ battingCollection.totalIntentionalBasesOnBalls }}</td>
+            <td>{{ battingCollection.totalHitByPitches }}</td>
+            <td>{{ battingCollection.totalGroundedIntoDoublePlays }}</td>
         </tr>
     </tbody>
 </table>

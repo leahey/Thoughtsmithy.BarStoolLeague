@@ -8,6 +8,7 @@ import { Person } from '../../shared/models/person.model';
 })
 export class PersonBioComponent implements OnInit {
   @Input() person: Person;
+  @Input() isDetail = false;
 
   constructor() { }
 

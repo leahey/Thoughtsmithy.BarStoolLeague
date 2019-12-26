@@ -4,7 +4,6 @@ import { Observable, from } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Person } from '../../shared/models/person.model';
-import { BattingModule } from 'src/app/batting/batting.module';
 
 @Component({
   selector: 'app-person-detail',
@@ -13,6 +12,7 @@ import { BattingModule } from 'src/app/batting/batting.module';
 })
 export class PersonDetailComponent implements OnInit {
   person: Person;
+  public isBattingCollapsed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,11 +20,12 @@ export class PersonDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+      // we're here via route; get playerId from route params.
       const playerId = this.route.snapshot.paramMap.get('id');
       const obsPerson = this.service.getPersonById(playerId);
 
       obsPerson.subscribe((data: Person) => {
-        this.person = data;
+        this.person = new Person().deserialize(data);
       });
 
       console.log(this.person);
