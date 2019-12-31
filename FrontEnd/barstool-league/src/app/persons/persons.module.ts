@@ -8,11 +8,12 @@ import { PersonService } from './person.service';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BattingModule } from '../batting/batting.module';
+import { AppearancesListComponent } from './appearances-list/appearances-list.component';
 
 
 @NgModule({
   declarations: [
-    PersonGridComponent, PersonRowComponent, PersonBioComponent, PersonDetailComponent
+    PersonGridComponent, PersonRowComponent, PersonBioComponent, PersonDetailComponent, AppearancesListComponent
   ],
   imports: [
     CommonModule, RouterModule, NgbModule, BattingModule

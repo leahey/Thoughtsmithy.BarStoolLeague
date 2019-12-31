@@ -1,12 +1,33 @@
 <div class="container">
     <app-person-bio [person]="person" [isDetail]=true></app-person-bio>
-    <div *ngIf="person.batting.length > 0">
-        <button type="button" class="btn btn-outline-primary mt-4 mb-2" (click)="isBattingCollapsed = !isBattingCollapsed"
-            [attr.aria-expanded]="!isBattingCollapsed" aria-controls="battingPanel">
-            Batting
-        </button>
+    <div class="btn-group btn-group-toggle mt-4">
+        <label class="btn btn-sm" [ngClass]="isAppearancesCollapsed ? 'btn-outline-Light' : 'btn-outline-primary'" ngbButtonLabel>
+            <input type="checkbox" ngbButton [(ngModel)]="isAppearancesCollapsed">Appearances
+        </label>
+        <label class="btn btn-sm" [ngClass]="isBattingCollapsed ? 'btn-outline-Light' : 'btn-outline-primary'" ngbButtonLabel>
+            <input type="checkbox" ngbButton [(ngModel)]="isBattingCollapsed">Batting
+        </label>
+        <label class="btn btn-sm" [ngClass]="isFieldingCollapsed ? 'btn-outline-Light' : 'btn-outline-primary'" ngbButtonLabel>
+            <input type="checkbox" ngbButton [(ngModel)]="isFieldingCollapsed">Fielding
+        </label>
+    </div>
+
+    <div *ngIf="hasAppearances" class="mt-2">
+        <div id="appearancesPanel" [ngbCollapse]="isAppearancesCollapsed">
+            <h5 class="btn btn-info btn-block text-left">Player game appearances</h5>
+            <app-appearances-list [appearanceData]="person.appearances"></app-appearances-list>
+        </div>
+    </div>
+    <div *ngIf="hasBatting" class="mt-2">
         <div id="battingPanel" [ngbCollapse]="isBattingCollapsed">
+            <h5 class="btn btn-info btn-block text-left">Player batting stats - regular season</h5>
             <app-batting-list [battingData]="person.batting"></app-batting-list>
+        </div>
+    </div>
+    <div *ngIf="hasFielding" class="mt-2">
+        <div id="fieldingPanel" [ngbCollapse]="isFieldingCollapsed">
+            <h5 class="btn btn-info btn-block text-left">Player fielding stats - regular season</h5>
+            <!-- <app-fielding-list [fieldingData]="person.fielding"></app-fielding-list> -->
         </div>
     </div>
 </div>

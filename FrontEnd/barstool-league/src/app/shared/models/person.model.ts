@@ -1,5 +1,7 @@
 import { BattingStint } from './batting-stint.model';
 import { Deserializable } from '../Interfaces/deserializable';
+import { Appearance } from './appearance.model';
+import { FieldingStint } from './fielding-stint.model';
 
 export class Person implements Deserializable {
     playerId: string;
@@ -34,10 +36,11 @@ export class Person implements Deserializable {
     bbrefID: string;
 
     allstarFull: Array<any>;
-    appearances: Array<any>;
+    appearances: Array<Appearance>;
     awardsPlayers: Array<any>;
     batting: Array<BattingStint>;
     battingPost: Array<any>;
+    fielding: Array<FieldingStint>;
     fieldingOF: Array<any>;
     fieldingOFsplit: Array<any>;
     fieldingPost: Array<any>;
@@ -52,6 +55,7 @@ export class Person implements Deserializable {
     public deserialize(input: any): this {
         Object.assign(this, input);
         this.batting = input.batting.map((b: any) => new BattingStint().deserialize(b));
+        this.appearances = input.appearances.map((b: any) => new Appearance().deserialize(b));
         return this;
     }
 

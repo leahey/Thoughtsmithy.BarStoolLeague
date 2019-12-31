@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BattingListComponent } from './batting/batting-list/batting-list.component';
 import { FieldingListComponent } from './fielding/fielding-list/fielding-list.component';
+import { BattingStintRowComponent } from './batting/batting-stint-row/batting-stint-row.component';
+import { AppearancesListComponent } from './persons/appearances-list/appearances-list.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'person/:id', component: PersonDetailComponent},
@@ -30,13 +33,16 @@ const appRoutes: Routes = [
     HomeComponent,
     PersonRowComponent,
     BattingListComponent,
-    FieldingListComponent
+    BattingStintRowComponent,
+    FieldingListComponent,
+    AppearancesListComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
     PersonService

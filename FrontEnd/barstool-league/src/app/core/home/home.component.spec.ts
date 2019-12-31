@@ -4,13 +4,13 @@ import { Person } from 'src/app/shared/models/person.model';
 import { PersonsModule } from 'src/app/persons/persons.module';
 import { PersonGridComponent } from 'src/app/persons/person-grid/person-grid.component';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, PersonGridComponent ],
+      declarations: [ HomeComponent ],
       imports: [PersonsModule ]
     })
     .compileComponents();

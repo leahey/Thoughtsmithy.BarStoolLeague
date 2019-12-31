@@ -1,7 +1,5 @@
-import { switchMap, map } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PersonService } from '../person.service';
 import { Person } from '../../shared/models/person.model';
 
@@ -11,8 +9,19 @@ import { Person } from '../../shared/models/person.model';
   styleUrls: ['./person-detail.component.css']
 })
 export class PersonDetailComponent implements OnInit {
+  buttonsModel = {
+    appearances: true,
+    batting: true,
+    fielding: true
+  };
+
   person: Person;
   public isBattingCollapsed = false;
+  public isAppearancesCollapsed = false;
+  public isFieldingCollapsed = false;
+  public hasAppearances = false;
+  public hasBatting = false;
+  public hasFielding = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +35,9 @@ export class PersonDetailComponent implements OnInit {
 
       obsPerson.subscribe((data: Person) => {
         this.person = new Person().deserialize(data);
+        this.hasAppearances = this.person.appearances.length > 0;
+        this.hasBatting = this.person.batting.length > 0;
+        this.hasFielding = this.person.fielding.length > 0;
       });
-
-      console.log(this.person);
   }
 }
